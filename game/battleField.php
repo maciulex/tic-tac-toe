@@ -50,14 +50,7 @@
                 </main>
             </aside>
             <section>
-                <table class="myFleet">
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </section>
-            <section>
-                <table class="enemyFleet">
+                <table class="main">
                     <tbody>
 
                     </tbody>

@@ -113,37 +113,6 @@ body {
             }
         }
     }
-    .buildFleet {
-        display: grid;
-        grid-template-columns: auto auto;
-        width: 100vw;
-        height: 95vh;
-        #freeShips {
-            td {
-                border: 0;
-                padding: 2px;
-            }
-            .ship {
-                border: 1px solid black;
-
-            }
-        }
-        table {
-            justify-self: center;
-            align-self: center;
-            width: 70vh;
-            height: 70vh;
-            border-collapse: collapse;
-            td {
-                width: 1fr;
-                height: 1fr;
-                border: 1px solid black;
-            }
-            .ship {
-                background-color: white;
-            }
-        }
-    }
     .asideBuild {
         position: fixed;
         height: 100vh;
@@ -186,20 +155,29 @@ body {
         }
     }
     .batteField {
-        display: grid;
-        height: 95vh;
-        grid-template-columns: 0.23fr auto auto;
-        table {
-            width: 90%;
-            margin: 5%;
-            td {
-                margin: 0;
-                padding: 0;
-                border: 1px solid black;
-            }
-            .headerTable {
-                text-align: center;
-                font-size: 150%;
+        aside {
+            width: 18vw;
+            height: 95vh;
+            float: left;
+        }
+        section {
+            float: right;
+            width: 80vw;
+            display: grid;
+            height: 95vh;
+            grid-template-columns: 0.5fr;
+            table {
+                width: 90%;
+                margin: 5%;
+                td {
+                    margin: 0;
+                    padding: 0;
+                    border: 1px solid black;
+                }
+                .headerTable {
+                    text-align: center;
+                    font-size: 150%;
+                }
             }
         }
     }

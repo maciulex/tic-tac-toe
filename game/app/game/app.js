@@ -1,21 +1,19 @@
 
 function basicLoad() {
-    let my = document.querySelector(".myFleet tbody");
-    let enemy = document.querySelector(".enemyFleet tbody");
+    let board = document.querySelector(".main");
     let raw = "";
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 3; i++) {
         raw += "<tr>";
-        for (let z = 0; z < 10; z++) {
-            raw += `<td class="f${i*10+z}" onclick="shoot(${i*10+z})"></td>`;
+        for (let z = 0; z < 3; z++) {
+            raw += `<td class="f${i*3+z}" onclick="guess(${i*3+z})"></td>`;
         }
         raw += "</tr>";
     }
-    my.innerHTML = `<tr><td colspan="10" class="headerTable">Twoje Statki</td></tr>`+raw;
-    enemy.innerHTML = `<tr><td colspan="10" class="headerTable">Wrogie statki</td></tr>`+raw;
-    let squere = document.querySelector(".headerTable").clientWidth;
-    let stinki = document.querySelectorAll("tr");
+    board.innerHTML = raw;
+    let squere = document.querySelector("td").clientWidth;
+    let stinki = document.querySelectorAll("td");
     for (let i = 0; i < stinki.length; i++) {
-        stinki[i].style.height = (squere/10)+"px";
+        stinki[i].style.height = squere+"px";
     }
 }
 function engine() {
@@ -23,50 +21,17 @@ function engine() {
     xml.onreadystatechange = function () {
         if (this.status == 200 && this.readyState == 4) {
             let data = this.responseText.split(";;;");
-            if (data[10] == "4") {
+            console.log(data);
+            if (data[7] == "4") {
                 window.location = "postGame.php?serverName="+server;
             }
-            loadPlayers(data[5], data[6], data[8]);
-            loadAside(data[0], data[1], data[2], data[3], data[4],data[9]);
+            loadAside(data[0],data[1],data[2],data[5],data[6]);
         }
     }
     xml.open("GET", "app/game/gameEngine.php?action=0", true);
     xml.send();
-    function loadPlayers(p1, p2, me) {
-        basicLoad();
-        me = parseInt(me);
-        let my = document.querySelector(".myFleet tbody");
-        let enemy = document.querySelector(".enemyFleet tbody");
-        let players = [p1.split(";"),p2.split(";")];
-        for (let p = 0; p < 2; p++) {
-            for (let i = 0; i < 100; i++) {
-                switch (players[p][i]) {
-                    case "1":
-                        if (p == me) {
-                            my.rows[Math.floor(i/10)+1].cells[i%10].style.backgroundColor = "black";
-                        }
-                    break;
-                    case "2":
-                        if (p == me) {
-                            my.rows[Math.floor(i/10)+1].cells[i%10].style.backgroundColor = "grey";
-                        } else {
-                            enemy.rows[Math.floor(i/10)+1].cells[i%10].style.backgroundColor = "grey";
-                        }
-                    break;
-                    case "3":
-                        if (p == me) {
-                            my.rows[Math.floor(i/10)+1].cells[i%10].style.backgroundColor = "red";
-                        } else {
-                            enemy.rows[Math.floor(i/10)+1].cells[i%10].style.backgroundColor = "red";
-                        }
-                    break;
-                }
-            }
-        }
-        
-    }
 }
-function loadAside(serverName, playersNicks, whosTour, timeout, lastAction, timeNow) {
+function loadAside(serverName, playersNicks, whosTour, lastAction, timeNow, timeout = 300) {
     let timeLeft = (parseInt(timeNow)-parseInt(lastAction));
     let gameInfo = document.querySelector(".gameInfo");
     playersNicks = playersNicks.split(";");
@@ -82,11 +47,11 @@ function loadAside(serverName, playersNicks, whosTour, timeout, lastAction, time
         infoP.style.backgroundColor = "red";
         infoP.innerHTML = "Poczekaj"; 
     }
-    if (timeLeft > 300) {
+    if (timeLeft > timeout) {
         gameInfo.innerHTML += `<button onclick="earlyEnd()">Zgłoś przedwczesne zakończenie gry</button>`;
     }
 }
-function shoot(where) {
+function guess(where) {
     let fild = document.querySelector(`.enemyFleet .f${where}`).style.backgroundColor;
     if (fild != "red" && fild != "grey") {
         let xml = new XMLHttpRequest;
@@ -107,4 +72,4 @@ function earlyEnd() {
     xml.send();
 }
 engine();
-let interval = setInterval(engine, 800);
+//let interval = setInterval(engine, 800);

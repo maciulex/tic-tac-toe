@@ -122,45 +122,6 @@ body .mainQueue .player .stats div {
   text-align: center;
 }
 
-body .buildFleet {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: auto auto;
-      grid-template-columns: auto auto;
-  width: 100vw;
-  height: 95vh;
-}
-
-body .buildFleet #freeShips td {
-  border: 0;
-  padding: 2px;
-}
-
-body .buildFleet #freeShips .ship {
-  border: 1px solid black;
-}
-
-body .buildFleet table {
-  -ms-grid-column-align: center;
-      justify-self: center;
-  -ms-flex-item-align: center;
-      -ms-grid-row-align: center;
-      align-self: center;
-  width: 70vh;
-  height: 70vh;
-  border-collapse: collapse;
-}
-
-body .buildFleet table td {
-  width: 1fr;
-  height: 1fr;
-  border: 1px solid black;
-}
-
-body .buildFleet table .ship {
-  background-color: white;
-}
-
 body .asideBuild {
   position: fixed;
   height: 100vh;
@@ -214,26 +175,34 @@ body .gameReturnBlock div, body .blockInfo div {
   display: inline-block;
 }
 
-body .batteField {
+body .batteField aside {
+  width: 18vw;
+  height: 95vh;
+  float: left;
+}
+
+body .batteField section {
+  float: right;
+  width: 80vw;
   display: -ms-grid;
   display: grid;
   height: 95vh;
-  -ms-grid-columns: 0.23fr auto auto;
-      grid-template-columns: 0.23fr auto auto;
+  -ms-grid-columns: 0.5fr;
+      grid-template-columns: 0.5fr;
 }
 
-body .batteField table {
+body .batteField section table {
   width: 90%;
   margin: 5%;
 }
 
-body .batteField table td {
+body .batteField section table td {
   margin: 0;
   padding: 0;
   border: 1px solid black;
 }
 
-body .batteField table .headerTable {
+body .batteField section table .headerTable {
   text-align: center;
   font-size: 150%;
 }

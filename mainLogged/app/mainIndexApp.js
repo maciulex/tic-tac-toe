@@ -65,6 +65,8 @@ function loadGames() {
                     return "Obserwuj";
                 case '3':
                     return "Zakończona";
+                case '4':
+                    return "Poczekalnia rewanżu";
             }
         }
         function getIco(arg) {
