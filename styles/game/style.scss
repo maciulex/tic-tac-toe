@@ -105,6 +105,7 @@ body {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 row-gap: 15px;
+                width: 100%;
                 div {
                     font-size: 1.5em;
                     padding: 10px;
@@ -177,6 +178,16 @@ body {
                 .headerTable {
                     text-align: center;
                     font-size: 150%;
+                }
+                .cross {
+                    background-image: url("../../photos/ico/close_black_24dp.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
+                }
+                .circle {
+                    background-image: url("../../photos/ico/brightness_1_black_24dp.svg");
+                    background-repeat: no-repeat;
+                    background-size: cover;
                 }
             }
         }

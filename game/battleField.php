@@ -60,7 +60,6 @@
         <div class="changeMotive" onclick="changeMotive()"> 
         </div>
         <script>
-            basicLoad();
             setMotive();
         </script>
     </body>

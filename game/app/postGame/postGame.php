@@ -14,13 +14,14 @@
     }
     $connection = new mysqli($db_host, $db_user, $db_password, $db_name);
     $players;
-    $sql = "SELECT name, status, playersNicks, privacy, players, shipsP1, shipsP2, gameEnd, score FROM games WHERE BINARY name = BINARY ?";
+    $board;
+    $sql = "SELECT name, status, playersNicks, privacy, players, gameEnd, score, board FROM gamestictactoe WHERE BINARY name = BINARY ?";
     $stmt = $connection -> prepare($sql);
     $stmt -> bind_param("s", $_GET['serverName']);
     $stmt -> execute();
     $stmt -> store_result();
     $rows = $stmt -> num_rows;
-    $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT, $shipP1, $shipP2, $gameEnd,$score);
+    $stmt -> bind_result($name, $status, $playersNicks, $privacy, $playersINT, $gameEnd,$score,$board);
     $stmt -> fetch();
     if ($rows == 1) {
         $players = explode(";", $playersNicks);
@@ -33,7 +34,7 @@
     }
     $stmt -> close();
     echo ";;;"; // great separator;
-    $sql = "SELECT nickname, descryption, avatar, Sgames, SgamesWin, SgamesLose FROM users WHERE BINARY nickname = BINARY ?";
+    $sql = "SELECT nickname, descryption, avatar, Sgames, SgamesWin, SgamesLose,SgamesAbound,SgamesEarlyEnd,SgamesDraw FROM users WHERE BINARY nickname = BINARY ?";
     $stmt = $connection -> prepare($sql);
     $data = array();
     foreach ($players as $key) {
@@ -45,16 +46,16 @@
             $stmt -> bind_param("s", $key);
             $stmt -> execute();
             $stmt -> store_result();
-            $stmt -> bind_result($nickname, $descryption, $avatar, $Sgames, $SgamesWin, $SgamesLose);
+            $stmt -> bind_result($nickname, $descryption, $avatar, $Sgames, $SgamesWin, $SgamesLose, $SgamesAbound, $SgamesEarlyEnd, $SgamesDraw);
             $stmt -> fetch();
             if ($avatar == "" || empty($avatar)) {
                 $avatar = "false";
             }
-            $data[] = $me.";".$nickname.";".$descryption.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$avatar;
+            $data[] = $me.";".$nickname.";".$descryption.";".$avatar.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$SgamesAbound.";".$SgamesEarlyEnd.";".$SgamesDraw;
         }
     }
     echo implode(";;", $data);
     $stmt -> close();
-    echo ";;;".$shipP1.";;".$shipP2;
+    echo ";;;".$board;
     mysqli_close($connection);
 ?>

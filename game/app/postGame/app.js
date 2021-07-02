@@ -19,10 +19,10 @@ function postGameEngine() {
     }
     function dealData(arg) {
         arg = arg.split(";;;");
+        console.log(arg);
         data[0] = arg[0].split(";");
         data[1] = arg[1].split(";;");
-        data[2] = arg[2].split(";;");
-
+        data[2] = arg[2].split(";");
         loadPages();
         //data[2] = arg[0];
         //gameLoad(arg[0]);
@@ -37,10 +37,11 @@ function loadPages() {
     place.innerHTML = "";
     function playerLoad(arg) {
         let localData = arg.split(";");
-        if (localData[6] == "false") {
+        console.log(localData);
+        if (localData[3] == "false") {
             var avatar = "def.jpg"; 
         } else {
-            var avatar = localData[6]; 
+            var avatar = localData[3]; 
         }
         let raw = `
             <div class="player">
@@ -54,7 +55,9 @@ function loadPages() {
                     </section>
                 </section>
                 <section class="stats">
-                    <div>Rozegrane: <br> ${localData[3]}</div><div>Wygrane: <br> ${localData[4]}</div><div>Przegrane: <br> ${localData[5]}</div>
+                    <div>Rozegrane: <br> ${localData[4]}</div><div>Wygrane: <br> ${localData[5]}</div><div>Przegrane: <br> ${localData[6]}</div>
+                    <div>Porzucone: <br> ${localData[7]}</div><div>Wcześnie zakończone: <br> ${localData[8]}</div><div>Remisy: <br> ${localData[9]}</div>
+
                 </section>
             </div>
         `;
@@ -87,9 +90,9 @@ function loadPages() {
                 case '2':
                     return "Rozpoczęta";
                 case '3':
-                    return "W trakcie przygotowań";   
-                case '4':
                     return "Zakończona";
+                case '4':
+                    return "Poczekalnia rewanżu";
             }
         }
         function getPrivacy(arg) {

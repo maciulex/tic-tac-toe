@@ -114,6 +114,7 @@ body .mainQueue .player .stats {
   -ms-grid-columns: (1fr)[3];
       grid-template-columns: repeat(3, 1fr);
   row-gap: 15px;
+  width: 100%;
 }
 
 body .mainQueue .player .stats div {
@@ -205,6 +206,18 @@ body .batteField section table td {
 body .batteField section table .headerTable {
   text-align: center;
   font-size: 150%;
+}
+
+body .batteField section table .cross {
+  background-image: url("../../photos/ico/close_black_24dp.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body .batteField section table .circle {
+  background-image: url("../../photos/ico/brightness_1_black_24dp.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .nightMotive {

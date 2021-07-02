@@ -44,7 +44,7 @@
             <aside class="noSelect">
 
             </aside>
-            <main class="batteField">
+            <main>
 
             </main>
         </section>
