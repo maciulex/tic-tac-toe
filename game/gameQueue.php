@@ -39,7 +39,7 @@
 <!DOCTYPE html>
 <html lang="pl">
     <head>
-        <title>Statki</title>
+        <title>kółko i krzyżyk!</title>
         <meta charset="utf-8">
         <link href="../styles/game/style.css" rel="stylesheet">
         <script src="app/queue/app.js"></script>

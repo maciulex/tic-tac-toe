@@ -14,7 +14,8 @@
 <!DOCTYPE html>
 <html lang="pl">
     <head>
-        <title>Statki</title>
+    <title>kółko i krzyżyk!</title>
+
         <meta charset="utf-8">
         <link href="../styles/gameList/style.css" rel="stylesheet">
         <script src="app/mainIndexApp.js"></script>
