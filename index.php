@@ -9,6 +9,7 @@
 <html lang="pl">
     <head>
         <meta charset="utf-8">
+        <title>kółko i krzyżyk!</title>
         <link href="styles/index/index.css" rel="stylesheet">
         <script>var motiveAccess = <?php  echo ((isset($_COOKIE['motive'])) ? $_COOKIE['motive'] : 0); ?>;</script>
         <script src="mainApp.js"></script>
@@ -24,7 +25,7 @@
                 </nav>
                 <hr>
                 <main>
-                    Darmowa gra w Statki!
+                    Darmowa gra w kółko i krzyżyk!
                 </main>
             </div>
         </div>

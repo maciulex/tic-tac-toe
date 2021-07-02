@@ -52,10 +52,8 @@ function loadGames() {
                 case '2':
                     return "Rozpoczęta";
                 case '3':
-                    return "W trakcie przygotowań";   
-                case '4':
                     return "Zakończona";
-                case '5':
+                case '4':
                     return "Poczekalnia rewanżu";
             }
         }
@@ -64,9 +62,8 @@ function loadGames() {
                 case '1':
                     return "Dołącz";
                 case '2':
-                case '3':
                     return "Obserwuj";
-                case '4':
+                case '3':
                     return "Zakończona";
             }
         }

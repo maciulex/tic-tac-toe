@@ -2,16 +2,13 @@
     function gotoF($arg) {
         switch ($arg) {
             case "1":
-            case "5":
+            case "4":
                 header("Location: gameQueue.php");
             break;
             case "2":
-                header("Location: buildFleet.php");
-            break;
-            case "3":
                 header("Location: battleField.php");
             break;
-            case "4":
+            case "3":
                 header("Location: postGame.php");
             break;
         }
@@ -32,7 +29,7 @@
         exit();
     }
     $stmt -> close();
-    $sql = "SELECT status FROM games WHERE id = ?";
+    $sql = "SELECT status FROM gamestictactoe WHERE id = ?";
     $stmt = $connection -> prepare($sql);
     $stmt -> bind_param("i", $inGame);
     $stmt -> execute();
@@ -42,22 +39,17 @@
     $stmt -> close();
     switch ($status) {
         case "1":
-        case "5":
+        case "4":
             if ($page != "queue") {
                 gotoF($status);
             }
         break;
         case "2":
-            if ($page != "buildFleet") {
-                gotoF($status);
-            }   
-        break;
-        case "3":
             if ($page != "battleField") {
                 gotoF($status);
             }
         break;
-        case "4":
+        case "3":
             if ($page != "endGame") {
                 gotoF($status);
             }

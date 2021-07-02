@@ -55,20 +55,6 @@
                     <section><label for="name" required>Nazwa serwera: </label><input id="name" name="name" type="text"></section>
                     <section><label for="passwordCh">Hasło? </label><input id="passwordCh" name="passwordCh" type="checkbox" onclick="addPassword()"></section>
                     <section class="hiddenPassword" style="display: none"><label for="password">Hasło: </label><input id="password" name="password" type="text"></section>
-                    <section class="radio">
-                        <label>Styl gry:</label><br>
-                        <label for="classicL">Klasyczny: </label><input id="classicL" name="gameStyle" type="radio" value="0" onclick="addCustom()" checked><br>
-                        <label for="russiaL">Rosyjski: </label><input id="russiaL" name="gameStyle" type="radio" value="1" onclick="addCustom()"><br>
-                        <label for="customL">Własny: </label><input id="customL" name="gameStyle" type="radio" value="2" onclick="addCustom()"><br>
-                    </section>
-                    <section style="display: none" id="custom">
-                        <label for="ship1L">1 kratkowy statek: </label><input type="number" name="ship1" id="ship1L" value="0"><br>
-                        <label for="ship2L">2 kratkowy statek: </label><input type="number" name="ship2" id="ship2L" value="0"><br>
-                        <label for="ship3L">3 kratkowy statek: </label><input type="number" name="ship3" id="ship3L" value="0"><br>
-                        <label for="ship4L">4 kratkowy statek: </label><input type="number" name="ship4" id="ship4L" value="0"><br>
-                        <label for="ship5L">5 kratkowy statek: </label><input type="number" name="ship5" id="ship5L" value="0"><br>
-                        Może być maksymalnie 10 statków!
-                    </section>
                     <button>Utwórz</button>
                 </form>
             </main>

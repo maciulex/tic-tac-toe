@@ -6,7 +6,7 @@ function load(whatLoad) {
         case "mainPage":
             header.innerHTML = "Witaj";
             nav.innerHTML = `<div class="selected">Strona główna</div>|<div onclick='load("Logging")'>Logowanie</div>|<div onclick='load("Register")'>Rejestracja</div>`;
-            content.innerHTML = `Darmowa gra w Statki!`;
+            content.innerHTML = `Darmowa gra w kółko i krzyżyk!`;
         break;
         case "Logging":
             header.innerHTML = "Logowanie";

@@ -37,9 +37,6 @@
         break;
         case 4:
             $status = "(status = 3) $logicalOperator ";
-        break;
-        case 5:
-            $status = "(status = 4) $logicalOperator ";
         break;        
         default:
             echo "error";
@@ -69,7 +66,7 @@
     }
     @include_once "../../base.php";
     $connection = @new mysqli($db_host, $db_user, $db_password, $db_name);
-    $sql = "SELECT name, privacy, status, players FROM games WHERE name LIKE ? $logicalOperator ".$privacy.$status.$fullness;
+    $sql = "SELECT name, privacy, status, players FROM gamestictactoe WHERE name LIKE ? $logicalOperator ".$privacy.$status.$fullness;
     $stmt = $connection -> prepare($sql);
     $stmt -> bind_param("s", $name);
     $stmt -> execute();

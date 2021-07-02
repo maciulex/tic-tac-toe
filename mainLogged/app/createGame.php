@@ -9,7 +9,7 @@
     } else {
         @include_once "../../user/loggedCheck.php";
     }
-    if (!isset($_POST['name']) || empty($_POST['name']) || strlen($_POST['name']) < 3 || trim($_POST['name'],";") != $_POST['name'] || !isset($_POST['gameStyle'])) {
+    if (!isset($_POST['name']) || empty($_POST['name']) || strlen($_POST['name']) < 3 || trim($_POST['name'],";") != $_POST['name']) {
         $_SESSION['error'] = "Coś się nie udało! 1";
         header("Location: ../gameCreate.php");
         exit();
@@ -27,55 +27,14 @@
     } else {
         $passwordBool = false;
     }
-    $gameStyle = intval($_POST['gameStyle']);
-    switch ($gameStyle) {
-        default:
-        case 0:
-            $gameStyle = '1;5;;1;4;;2;3;;1;2';
-        break;
-        case 1:
-            $gameStyle = '1;4;;2;3;;3;2;;4;1';
-        break;
-        case 2:
-            $gameStyle = array();
-            $shipsSum = 0;
-            $shipsSum += intval($_POST['ship5']);
-            $shipsSum += intval($_POST['ship4']);
-            $shipsSum += intval($_POST['ship3']);
-            $shipsSum += intval($_POST['ship2']);
-            $shipsSum += intval($_POST['ship1']);
-            if ($shipsSum > 10 || $shipsSum < 0) {
-                $_SESSION['error'] = "To więcej niż 10 statków!";
-                header("Location: ../gameCreate.php");
-                exit();  
-            }
-            if (intval($_POST['ship5']) > 0) {
-                $gameStyle[] = $_POST['ship5'].";5";
-            }
-            if (intval($_POST['ship4']) > 0) {
-                $gameStyle[] = $_POST['ship4'].";4";
-            }
-            if (intval($_POST['ship3']) > 0) {
-                $gameStyle[] = $_POST['ship3'].";3";
-            }
-            if (intval($_POST['ship2']) > 0) {
-                $gameStyle[] = $_POST['ship2'].";2";
-            }
-            if (intval($_POST['ship1']) > 0) {
-                $gameStyle[] = $_POST['ship1'].";1";
-            }
-            $gameStyle = implode(";;", $gameStyle);
-        break;
-    }
     $connection = @new mysqli($db_host,$db_user,$db_password,$db_name);
     if ($connection -> connect_errno > 0) {
         $_SESSION['error'] = "Coś się nie udało!";
         header("Location: ../gameCreate.php");
         exit();
     } else {
-        $rawPlank = "0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0";
         $location;
-        $sql = "SELECT id FROM games WHERE BINARY name = ?";
+        $sql = "SELECT id FROM gamestictactoe WHERE BINARY name = ?";
         $stmt = $connection -> prepare($sql);
         $stmt -> bind_param("s", $_POST['name']);
         $stmt -> execute();
@@ -88,16 +47,16 @@
             exit();
         }
         if ($passwordBool) {
-            $sql = "INSERT INTO games (name,password,privacy,shipsP1,shipsP2,gameShips) VALUES (?,?,2,?,?,?)";
+            $sql = "INSERT INTO gamestictactoe (name,password,privacy) VALUES (?,?,2)";
             $stmt = $connection -> prepare($sql);
-            $stmt -> bind_param("sssss", $_POST['name'], $password,$rawPlank,$rawPlank,$gameStyle);
+            $stmt -> bind_param("ss", $_POST['name'], $password);
             $stmt -> execute();
             $stmt -> close();
             $location = "Location: gameJoin.php?name=".$_POST['name']."&password=".$password;
         } else {
-            $sql = "INSERT INTO games (name,privacy,shipsP1,shipsP2,gameShips) VALUES (?,1,?,?,?)";
+            $sql = "INSERT INTO gamestictactoe (name,privacy) VALUES (?,1)";
             $stmt = $connection -> prepare($sql);
-            $stmt -> bind_param("ssss", $_POST['name'],$rawPlank,$rawPlank,$gameStyle);
+            $stmt -> bind_param("s", $_POST['name']);
             $stmt -> execute();
             $stmt -> close();
             $location = "Location: gameJoin.php?name=".$_POST['name'];

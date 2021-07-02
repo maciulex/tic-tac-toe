@@ -1,15 +1,6 @@
 var status;
 var host = false;
 var playersNumber = 0;
-var size;
-// czy jest coś złapane który statek który blok statku rotacja długość statku
-var track = [false,0,0,0,0];
-let width;
-//element x y width height
-let elementB = [null,null,null,null,null];
-let lastMove = 0;
-let mouseClickHelper = false;
-let setShips = 0;
 function queueEngine(arg) {
     function xmlEngine() {
         var xml = new XMLHttpRequest;
@@ -92,10 +83,8 @@ function queueEngine(arg) {
         data = data.split(";");
         status = data[1];
         if (data[1] == "2") {
-            window.location = "buildFleet.php";
-        } else if (data[1] == "3") {
             window.location = "battleField.php";
-        } 
+        }
         let place = document.querySelector(".mainQueue aside");
         place.innerHTML = `
             <br><br>
@@ -116,10 +105,8 @@ function queueEngine(arg) {
                 case '2':
                     return "Rozpoczęta";
                 case '3':
-                    return "W trakcie przygotowań";   
-                case '4':
                     return "Zakończona";
-                case '5':
+                case '4':
                     return "Poczekalnia rewanżu";
             }
         }
@@ -140,137 +127,6 @@ function queueEngine(arg) {
     xmlEngine();
 }
 
-function buildEngine(arg) {
-    //length, rotation | x, y if null == -1 
-    function buildBoard(x,y) {
-        size = [x,y];
-        let place = document.querySelector(".buildFleet");
-        let raw = "";
-        for (let i = 0; i < 20; i++) {
-            raw += "<tr>";
-            for (let z = 0; z < 20; z++) {
-                raw += "<td></td>";
-            }
-            raw += "</tr>";
-        }
-        place.innerHTML = `<table id="freeShips"><tbody>${raw}</tbody></table>`;
-        raw = "";
-        for (let i = 0; i < x; i++) {
-            raw += "<tr>";
-            for (let z = 0; z < y; z++) {
-                raw += "<td></td>";
-            }
-            raw += "</tr>";
-        }
-        place.innerHTML += `<table id="busyShips"><tbody>${raw}</tbody></table>`;
-
-    }
-    function buildShips() {
-        let freeShips = document.querySelector("#freeShips");
-        let busyShips = document.querySelector("#busyShips");
-        for (let i = 0; i < shipsData.length; i++) {
-            if (shipsData[i][2] == -1) {
-                for (let z = 0; z < shipsData[i][0]; z++) {
-                    freeShips.rows[i*2].cells[19-z].classList.add("ship", "Ship"+i, "No"+z);
-                    freeShips.rows[i*2].cells[19-z].setAttribute("onclick", `shipClicked(${i}, ${z})`);
-                }
-            } else {
-                
-            }
-        }
-    }
-    switch (arg) {
-        case 0: 
-            buildBoard(10,10);
-            buildShips();
-        break;
-    }
-}
-let lastCords = [0,0];
-
-function deleteShip(arg) {
-    let shipPlaced = document.querySelectorAll(".shipNo"+arg);
-    let shipBuild = document.querySelectorAll(".ship.Ship"+arg);
-    for (let i = 0; i < shipPlaced.length; i++) {
-        shipPlaced[i].removeAttribute("class");
-        shipPlaced[i].removeAttribute("onclick");
-        shipBuild[i].classList.remove("itsPlaced");
-    }
-    setShips--;
-    document.querySelector(".doVal").innerHTML = ``;
-}
-function shipClicked(which, block) {
-    if (!track[0]) {
-        let elements = document.querySelectorAll(".ship.Ship"+which);
-        if (elements[0].classList.contains("itsPlaced")) {
-            return;
-        }
-        track[0] = true;
-        track[1] = which;
-        track[2] = block;
-        let pickedRaw = "";
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].classList.add("pickedUp");
-            pickedRaw += "<td></td>";
-            track[4] += 1;
-        }
-        width = document.querySelector("#busyShips tr td").offsetWidth;
-        document.querySelector("#pickedUp").innerHTML = `<table cellspacing="0" cellpadding="0"><tbody><tr>${pickedRaw}</tr></tbody></table>`;
-        let pickedUp = document.querySelectorAll("#pickedUp tr td");
-        for (let i = 0; i < pickedUp.length; i++) {
-            pickedUp[i].style.width = width+"px";
-            pickedUp[i].style.height = width+"px";
-        }
-        elementB[0] = document.querySelector("#busyShips")
-        elementB[1] = elementB[0].offsetLeft;
-        elementB[2] = elementB[0].offsetTop;
-        elementB[3] = elementB[0].offsetWidth;
-        elementB[4] = elementB[0].offsetHeight;
-        document.querySelector("#pickedUp").classList.remove("displayOff");
-    }
-}
-function shipsValidation() {
-    let shipS = [];
-    for (let i = 0; i < shipsData.length; i++) {
-        let ship = document.querySelectorAll(".shipNo"+i);
-        let mystr = [];
-        for (let z = 0; z < ship.length; z++) {
-            mystr.push((ship[z].cellIndex+";"+ship[z].parentNode.rowIndex));
-        }
-        mystr= mystr.join(";;");
-        shipS.push(mystr);
-    }
-    shipS = shipS.join(";;;");
-    var xml = new XMLHttpRequest;
-    xml.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            alert(this.responseText);
-        }
-    }
-    xml.open("GET", "app/queue/validateShips.php?data="+shipS, true);
-    xml.send();
-}
-
-function getReadyPlayers() {
-    let xml = new XMLHttpRequest;
-    xml.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            let data = this.responseText.split(";");
-            let players = data[0];
-            document.querySelector(".gameReturnBlock").innerHTML = "Gotowych graczy: "+players+"/2";
-            if (players == "2") {
-                window.location = "battleField.php";
-            }
-            if (parseInt(data[1])+300 < parseInt(data[2])) {
-                document.querySelector(".fastEnd").innerHTML = `<button onclick="earlyEnd()">Zgłoś przedwczesne zakończenie gry</button>`;
-            } else {
-                document.querySelector(".fastEnd").innerHTML = "";
-            }
-        } 
-    }
-    xml.open("GET", "app/queue/queueEngine.php?action=4", true);
-    xml.send();
-}
 function earlyEnd() {
     let xml = new XMLHttpRequest;
     xml.onreadystatechange = function () {

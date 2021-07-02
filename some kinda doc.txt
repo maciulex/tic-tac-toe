@@ -1,0 +1,7 @@
+games statues 
+    1 nie rozpoczęta w Lobby
+    2 walka
+    3 koniec
+    4 revange lobby - w razie rozpoczęcia -> 2
+
+001 - connect_errno > 0

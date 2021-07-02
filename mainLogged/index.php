@@ -34,7 +34,7 @@
                 $stmt -> bind_result($inGame);
                 $stmt -> fetch();
                 if (intval($inGame) != 0) {
-                    $sql = "SELECT status, players FROM games WHERE BINARY name = BINARY ?";
+                    $sql = "SELECT status, players FROM gamestictactoe WHERE BINARY name = BINARY ?";
                     $stmt2 = $connection -> prepare($sql);
                     $stmt2 -> bind_param("s", $_SESSION['serverName']);
                     $stmt2 -> execute();
@@ -46,12 +46,9 @@
                             $status = "W poczekalni";
                         break;
                         case 2:
-                            $status = "Budowa floty";
-                        break;
-                        case 3:
                             $status = "W grzę";
                         break;
-                        case 5:
+                        case 4:
                             $status = "Poczekalnia rewanżu";
                         break;
                     }
@@ -96,8 +93,7 @@
                     <option value="1">Wszystkie</option>
                     <option value="2" selected>Nie rozpoczęte</option>
                     <option value="3">Rozpoczęte</option>
-                    <option value="4">W trakcie przygotowań</option>
-                    <option value="5">Zakończone</option>
+                    <option value="4">Zakończone</option>
                 </select>
                 <br><br>
                 <div class='noSelectText'>Zapełnienie:</div>
