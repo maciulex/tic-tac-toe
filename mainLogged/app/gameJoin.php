@@ -45,7 +45,7 @@
         $stmt -> fetch();
         $stmt -> close();
         $status = intval($status);
-        if (($status == 3 || $status == 4) && isset($_GET["code"]) && $_GET["code"] == "revange") {
+        if (($status == 3 || $status == 4) || (isset($_GET["code"]) && $_GET["code"] == "revange")) {
             $playersNicks = explode(";", $playersNicks);
             $iterator = 0;
             if ($playersNicks[0] == $_SESSION['nickname'] || $playersNicks[1] == $_SESSION['nickname']) {
@@ -55,7 +55,7 @@
                     $stmt -> bind_param("is", $id, $_SESSION['nickname']);
                     $stmt -> execute();
                     $readyFleets = implode(";",$readyFleets);
-                    $sql = "UPDATE gamestictactoe SET revange = revange + 1, status = 5 WHERE name = ?";
+                    $sql = "UPDATE gamestictactoe SET revange = revange + 1, status = 4 WHERE name = ?";
                     $stmt -> prepare($sql);
                     $stmt -> bind_param("s", $_GET['name']);
                     $stmt -> execute();

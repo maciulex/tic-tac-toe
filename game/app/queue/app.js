@@ -7,6 +7,7 @@ function queueEngine(arg) {
         xml.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText[0] == "e" && this.responseText[4] == "r") {
+                    console.log(this.responseText);
                     alert("wystąpił błąd ");
                     return;
                 }
@@ -30,7 +31,7 @@ function queueEngine(arg) {
         if (host) {
             hostLoad();
         }
-        if (status == "5") {
+        if (status == "4" && host) {
             document.querySelector("#throwOut").parentNode.innerHTML="";
         }
     }

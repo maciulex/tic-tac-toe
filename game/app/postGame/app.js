@@ -7,7 +7,6 @@ function postGameEngine() {
         xml.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 if (this.responseText[0] == "e" && this.responseText[4] == "r") {
-                    console.log(this.responseText);
                     alert("wystąpił błąd ");
                     return;
                 }
@@ -19,7 +18,6 @@ function postGameEngine() {
     }
     function dealData(arg) {
         arg = arg.split(";;;");
-        console.log(arg);
         data[0] = arg[0].split(";");
         data[1] = arg[1].split(";;");
         data[2] = arg[2].split(";");
@@ -113,40 +111,30 @@ function loadPages() {
 function drawBoards() {
     let place = document.querySelector("main");
     document.querySelector("main").innerHTML = "";
-    for (let x = 0; x < 2; x++) {
-        let playerNick = data[1][x].split(";");
-        playerNick = playerNick[1];
-        let value = data[2][x].split(";");
-        let raw = `<table cellspacing="0"><tbody>`;
-        raw += `<tr><td colspan="10" class="headerTable">${playerNick}</td></tr>`;
-        for (let i = 0; i < 100; i++) {
-            if (i%10 == 0) {
-                raw += '</tr><tr>';
-            }
-            switch (value[i]){
-                case "0":
-                    raw += `<td class="tdElement"></td>`;
-                break;
-                case "1":
-                    raw += `<td class="tdElement" style="background-color: black"></td>`;
-                break;
-                case "2":
-                    raw += `<td class="tdElement" style="background-color: grey"></td>`;
-                break;
-                case "3":
-                    raw += `<td class="tdElement" style="background-color: red"></td>`;
-                break;
-            }   
-
+    let value = data[2];
+    let raw = `<section class="board"><table><tbody>`;
+    for (let i = 0; i < 9; i++) {
+        if (i == 0 || i == 3 || i == 6) {
+            raw += '</tr><tr>';
         }
-        raw += "</tbody></table>";
-        document.querySelector("main").innerHTML += raw;
-        let width = document.querySelector(".headerTable").clientWidth/10;
-        let elements = document.querySelectorAll(".tdElement");
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].style.height = width+"px";
-        }
-
+        switch (value[i]){
+            case "0":
+                raw += `<td class="tdElement"></td>`;
+            break;
+            case "1":
+                raw += `<td class="tdElement circle"></td>`;
+            break;
+            case "2":
+                raw += `<td class="tdElement cross"></td>`;
+            break;
+        }   
+    }
+    raw += "</tbody></table></section>";
+    document.querySelector("main").innerHTML = raw;
+    let width = document.querySelector(".tdElement").clientWidth;
+    let elements = document.querySelectorAll(".tdElement");
+    for (let i = 0; i < elements.length; i++) {
+        elements[i].style.height = width+"px";
     }
 }
 function changeCard(arg) {

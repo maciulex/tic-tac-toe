@@ -155,6 +155,36 @@ body {
             display: inline-block;
         }
     }
+    .board {
+        float: right;
+        width: 80vw;
+        display: grid;
+        height: 95vh;
+        grid-template-columns: 0.5fr;
+        table {
+            width: 90%;
+            margin: 5%;
+            td {
+                margin: 0;
+                padding: 0;
+                border: 1px solid black;
+            }
+            .headerTable {
+                text-align: center;
+                font-size: 150%;
+            }
+            .cross {
+                background-image: url("../../photos/ico/close_black_24dp.svg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+            .circle {
+                background-image: url("../../photos/ico/brightness_1_black_24dp.svg");
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+    }
     .batteField {
         aside {
             width: 18vw;
@@ -212,6 +242,11 @@ body {
         .player {
             background-color: $backgroundColorSecond-Dark;
         }
+        .board {
+            table {
+                background-color: $backgroundColorFour-Dark;
+            }
+        }
     }
     .buildFleet {
         #busyShips {
@@ -262,6 +297,11 @@ body {
         }
         .player {
             background-color: $backgroundColorSecond-Light;
+        }
+        .board {
+            table {
+                background-color: $backgroundColorFour-Light;
+            }
         }
     }
     .buildFleet {

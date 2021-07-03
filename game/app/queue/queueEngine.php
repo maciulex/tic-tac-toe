@@ -34,7 +34,7 @@
                 if (intval($revange) == 2) {
                     $status = 2;
                     $plainBoard = "0;0;0;0;0;0;0;0;0";
-                    $sql = 'UPDATE games SET status = 2, board = ?, whosTour = 0 WHERE name = ?';
+                    $sql = 'UPDATE gamestictactoe SET status = 2, board = ?, whosTour = 0 WHERE name = ?';
                     $stmt2 = $connection -> prepare($sql);
                     $stmt2 -> bind_param("ss", $plainBoard, $_SESSION['serverName']);
                     $stmt2 -> execute();
@@ -83,9 +83,9 @@
             }
             $stmt -> bind_result($playersNicks, $status, $revange);
             $stmt -> fetch();
-            if ($status == "5") {
+            if ($status == "4") {
                 $revange = intval($revange)-1;
-                $sql = "UPDATE games SET readyFleets = ? WHERE name = ?";
+                $sql = "UPDATE gamestictactoe SET revange = ? WHERE name = ?";
                 $stmt2 = $connection -> prepare($sql);
                 $stmt2 -> bind_param("is", $revange, $_SESSION["serverName"]);
                 $stmt2 -> execute();

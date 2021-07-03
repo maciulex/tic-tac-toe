@@ -176,6 +176,44 @@ body .gameReturnBlock div, body .blockInfo div {
   display: inline-block;
 }
 
+body .board {
+  float: right;
+  width: 80vw;
+  display: -ms-grid;
+  display: grid;
+  height: 95vh;
+  -ms-grid-columns: 0.5fr;
+      grid-template-columns: 0.5fr;
+}
+
+body .board table {
+  width: 90%;
+  margin: 5%;
+}
+
+body .board table td {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+}
+
+body .board table .headerTable {
+  text-align: center;
+  font-size: 150%;
+}
+
+body .board table .cross {
+  background-image: url("../../photos/ico/close_black_24dp.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+body .board table .circle {
+  background-image: url("../../photos/ico/brightness_1_black_24dp.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 body .batteField aside {
   width: 18vw;
   height: 95vh;
@@ -241,6 +279,10 @@ body .batteField section table .circle {
   background-color: #505168;
 }
 
+.nightMotive .mainQueue .board table {
+  background-color: #7D869C;
+}
+
 .nightMotive .buildFleet #busyShips {
   background-color: #7D869C;
 }
@@ -289,6 +331,10 @@ body .batteField section table .circle {
 
 .dayMotive .mainQueue .player {
   background-color: #ffddd2;
+}
+
+.dayMotive .mainQueue .board table {
+  background-color: #ffe5d9;
 }
 
 .dayMotive .buildFleet #busyShips {

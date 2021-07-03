@@ -62,7 +62,10 @@
                     exit();
                 }
                 $board = explode(";", $board);
-                if ($board[$cord] == "0") {
+                for ($i = 0; $i < 9; $i++) {
+                    $board[$i]=intval($board[$i]);
+                }
+                if ($board[$cord] == 0) {
                     if ($whosTour == 0) {
                         $board[$cord] = 1;
                         $whosTour = 1;
@@ -78,9 +81,6 @@
                     $stmt -> execute();
                     echo "done";
                     $win = array(false, 0);
-                    for ($i = 0; $i < 9; $i++) {
-                        $board[$i]=intval($board[$i]);
-                    }
                     //lazy shit (*) ~~ code
                     if ($board[0] != 0 && $board[0] == $board[4] && $board[4] == $board[8]) {
                         $win[0] = true;
@@ -110,8 +110,8 @@
                     if (!$win[0]) {
                         $win[0] = true;
                         $win[1] = "Remis";
-                        for ($i = 0; $i < 8; $i++) {
-                            if (intval($board[$i]) != 0) {
+                        for ($i = 0; $i < 9; $i++) {
+                            if ($board[$i] == 0) {
                                 $win[0] = false;
                                 break;
                             }
@@ -124,7 +124,7 @@
                         $score = explode(";", $score);
                         $score[$win[1]] = intval($score[$win[1]])+1;
                         $score = implode(";", $score);
-                        $sql = "UPDATE gamestictactoe SET status = 3, gameEnd = ?, score = ? WHERE name = ?";
+                        $sql = "UPDATE gamestictactoe SET status = 3, gameEnd = ?, score = ?, revange = 0 WHERE name = ?";
                         $stmt -> prepare($sql);
                         $stmt -> bind_param("sss", $winMess, $score, $_SESSION["serverName"]);
                         $stmt -> execute();
