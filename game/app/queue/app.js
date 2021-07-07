@@ -45,18 +45,16 @@ function queueEngine(arg) {
         for (var i = 0; i < data.length-1; i++) {
             let localData = data[i].split(";"); 
             if (localData[0] == "true") {
-                if (i == 0) {
-                    host = true;
-                }
+                if (i == 0) host = true;
                 iStillHERE = true;
                 kick = `<button onclick="queueEngine(1)">Opuść grę</button>`;
             } else if (host && localData[0] == "false") {
                 kick = `<button onclick="queueEngine(2)" id="throwOut">Wyrzuć gracza</button>`;
             }
-            if (localData[6] == "false") {
+            if (localData[3] == "false") {
                 var avatar = "def.jpg"; 
             } else {
-                var avatar = localData[6]; 
+                var avatar = localData[3]; 
             }
             let raw = `
                 <div class="player">
@@ -70,7 +68,8 @@ function queueEngine(arg) {
                         </section>
                     </section>
                     <section class="stats">
-                        <div>Rozegrane: <br> ${localData[3]}</div><div>Wygrane: <br> ${localData[4]}</div><div>Przegrane: <br> ${localData[5]}</div>
+                        <div>Rozegrane: <br> ${localData[4]}</div><div>Wygrane: <br> ${localData[5]}</div><div>Przegrane: <br> ${localData[6]}</div>
+                        <div>Porzucone: <br> ${localData[7]}</div><div>Wcześnie zakończone: <br> ${localData[8]}</div><div>Remisy: <br> ${localData[9]}</div>
                     </section>
                 </div>
             `;

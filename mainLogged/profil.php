@@ -62,6 +62,18 @@
                     $stmt2 -> close();
                 }
                 $stmt -> close();
+                $sql = "SELECT descryption, avatar, Sgames, SgamesWin, SgamesLose,SgamesAbound,SgamesEarlyEnd,SgamesDraw FROM users WHERE BINARY nickname = BINARY ?";
+                $stmt = $connection -> prepare($sql);
+                $stmt -> bind_param("s", $_SESSION['nickname']);
+                $stmt -> execute();
+                $stmt -> store_result();
+                $stmt -> bind_result($descryption, $avatar, $Sgames, $SgamesWin, $SgamesLose, $SgamesAbound, $SgamesEarlyEnd, $SgamesDraw);
+                $stmt -> fetch();
+                if ($avatar == "" || empty($avatar)) {
+                    $avatar = "def.jpg";
+                } else {
+                    $avatar = $avatar.".jpg";
+                }
             ?>
             <a href="index.php" class="right" style="width:75px"><button>Lista gier</button></a>
             <a href="gameCreate.php" class="right" style="width:75px"><button>Stwórz grę</button></a>
@@ -72,21 +84,22 @@
                     Profil gracza: <?php echo $_SESSION['nickname'];?>
                 </h1>
                 <hr>
-                <?php 
-                    $sql = "SELECT avatar FROM users WHERE nickname = ?";
-                    $stmt = $connection -> prepare($sql);
-                    $stmt -> bind_param("s", $_SESSION['nickname']);
-                    $stmt -> execute();
-                    $stmt -> store_result();
-                    $stmt -> bind_result($avatar);
-                    $stmt -> fetch();
-                    if ($avatar != "" && !empty($avatar)) {
-                        echo '<img src="../photos/avatars/'.$avatar.'">';
-                    } else {
-                        echo '<img src="../photos/avatars/def.jpg">';
-                    }
-                    $stmt -> close();
-                ?>
+                <div class="player">
+                    <section class="header">
+                        <img src="../photos/avatars/<?php echo $avatar; ?>">
+                        <section>
+                            <h1><?php echo $_SESSION['nickname'];?></h1>
+                            <div>
+                                Opis gracza: <?php echo $descryption; ?>
+                            </div>
+                        </section>
+                    </section>
+                    <section class="stats">
+                        <div>Rozegrane: <br> <?php echo $Sgames; ?></div><div>Wygrane: <br> <?php echo $SgamesWin; ?></div><div>Przegrane: <br> <?php echo $SgamesLose; ?></div>
+                        <div>Porzucone: <br> <?php echo $SgamesAbound; ?></div><div>Wcześnie zakończone: <br> <?php echo $SgamesEarlyEnd; ?></div><div>Remisy: <br> <?php echo $SgamesDraw; ?></div>
+                    </section>
+                </div>
+
                 <button onclick="changeTo(1)">Edycja profilu</button>
 
             </main>
@@ -134,6 +147,7 @@
     </body>
 </html> 
 <?php
+    $stmt -> close();
     if (isset($_SESSION['error'])) {
         unset($_SESSION['error']);
     }

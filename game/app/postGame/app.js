@@ -55,7 +55,6 @@ function loadPages() {
                 <section class="stats">
                     <div>Rozegrane: <br> ${localData[4]}</div><div>Wygrane: <br> ${localData[5]}</div><div>Przegrane: <br> ${localData[6]}</div>
                     <div>Porzucone: <br> ${localData[7]}</div><div>Wcześnie zakończone: <br> ${localData[8]}</div><div>Remisy: <br> ${localData[9]}</div>
-
                 </section>
             </div>
         `;

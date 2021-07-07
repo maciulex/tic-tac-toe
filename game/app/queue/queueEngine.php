@@ -52,19 +52,19 @@
             }
             $stmt -> close();
             echo ";;;"; // great separator;
-            $sql = "SELECT nickname, descryption, avatar, Sgames, SgamesWin, SgamesLose FROM users WHERE BINARY nickname = BINARY ?";
+            $sql = "SELECT nickname, descryption, avatar, Sgames, SgamesWin, SgamesLose,SgamesAbound,SgamesEarlyEnd,SgamesDraw FROM users WHERE BINARY nickname = BINARY ?";
             $stmt = $connection -> prepare($sql);
             foreach ($players as $key) {
                 if ($key != "" && !empty($key)) {
                     $stmt -> bind_param("s", $key);
                     $stmt -> execute();
                     $stmt -> store_result();
-                    $stmt -> bind_result($nickname, $descryption, $avatar, $Sgames, $SgamesWin, $SgamesLose);
+                    $stmt -> bind_result($nickname, $descryption, $avatar, $Sgames, $SgamesWin, $SgamesLose, $SgamesAbound, $SgamesEarlyEnd, $SgamesDraw);
                     $stmt -> fetch();
                     if ($avatar == "" || empty($avatar)) {
                         $avatar = "false";
                     }
-                    echo (($nickname == $_SESSION['nickname']) ? "true" : "false").";".$nickname.";".$descryption.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$avatar.";;";
+                    echo (($nickname == $_SESSION['nickname']) ? "true" : "false").";".$nickname.";".$descryption.";".$avatar.";".$Sgames.";".$SgamesWin.";".$SgamesLose.";".$SgamesAbound.";".$SgamesEarlyEnd.";".$SgamesDraw.";;";
                 }
             }
             $stmt -> close();

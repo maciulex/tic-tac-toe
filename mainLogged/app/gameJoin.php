@@ -45,7 +45,7 @@
         $stmt -> fetch();
         $stmt -> close();
         $status = intval($status);
-        if (($status == 3 || $status == 4) || (isset($_GET["code"]) && $_GET["code"] == "revange")) {
+        if (($status == 3 || $status == 4) && (isset($_GET["code"]) && $_GET["code"] == "revange")) {
             $playersNicks = explode(";", $playersNicks);
             $iterator = 0;
             if ($playersNicks[0] == $_SESSION['nickname'] || $playersNicks[1] == $_SESSION['nickname']) {
